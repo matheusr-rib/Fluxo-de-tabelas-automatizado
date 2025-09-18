@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Comissão</title>
+</head>
+<body>
+    <h1>Upload de Comissão</h1>
+
+    {% if mensagem %}
+        <p style="color: green;">{{ mensagem }}</p>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
