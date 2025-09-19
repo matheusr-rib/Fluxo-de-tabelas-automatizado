@@ -23,5 +23,5 @@ from uploads import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('fluxo/', views.upload_view, name='upload'),
+    path("fluxo/", views.upload_arquivo, name="upload_arquivo"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
