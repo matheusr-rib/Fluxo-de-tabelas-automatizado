@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <title>Upload de Arquivo</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
-        .container { max-width: 700px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0px 2px 8px rgba(0,0,0,0.1); }
+        body { font-family: Arial; background: #f9f9f9; padding: 20px; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         h2 { text-align: center; margin-bottom: 20px; }
-        form p { margin-bottom: 15px; }
+        p { margin-bottom: 15px; }
         label { font-weight: bold; display: block; margin-bottom: 5px; }
         input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; }
         button { display: block; margin: auto; margin-top: 20px; padding: 12px 20px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
@@ -30,71 +30,26 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <!-- Arquivo -->
-        <p>
-            <label for="id_arquivo">Arquivo:</label>
-            {{ form.arquivo }}
-        </p>
+        <p>{{ form.arquivo.label_tag }}{{ form.arquivo }}</p>
+        <p>{{ form.banco.label_tag }}{{ form.banco }}</p>
+        <p>{{ form.responsavel.label_tag }} <span class="opcional">(preenchido automaticamente)</span>{{ form.responsavel }}</p>
 
-        <!-- Banco -->
-        <p>
-            <label for="id_banco">Banco:</label>
-            {{ form.banco }}
-        </p>
-
-        <!-- Responsável -->
-        <p>
-            <label for="id_responsavel">Responsável <span class="opcional">(preenchido automaticamente)</span>:</label>
-            {{ form.responsavel }}
-        </p>
-
-        <!-- Campos opcionais agrupados -->
         <fieldset>
             <legend>Informações adicionais (opcional)</legend>
-
-            <p>
-                <label for="id_tipo">Tipo:</label>
-                {{ form.tipo }}
-            </p>
-
-            <p>
-                <label for="id_situacao">Situação:</label>
-                {{ form.situacao }}
-            </p>
-
-            <p>
-                <label for="id_convenio">Convênio:</label>
-                {{ form.convenio }}
-            </p>
-
-            <p>
-                <label for="id_tipo_op">Tipo de Operação:</label>
-                {{ form.tipo_op }}
-            </p>
-
-            <p>
-                <label for="id_recebido">Recebido:</label>
-                {{ form.recebido }}
-            </p>
-
-            <p>
-                <label for="id_emailOuContato">E-mail ou Contato:</label>
-                {{ form.emailOuContato }}
-            </p>
-
-            <p>
-                <label for="id_observação">Observação:</label>
-                {{ form.observação }}
-            </p>
+            <p>{{ form.tipo.label_tag }}{{ form.tipo }}</p>
+            <p>{{ form.situacao.label_tag }}{{ form.situacao }}</p>
+            <p>{{ form.convenio.label_tag }}{{ form.convenio }}</p>
+            <p>{{ form.tipo_op.label_tag }}{{ form.tipo_op }}</p>
+            <p>{{ form.recebido.label_tag }}{{ form.recebido }}</p>
+            <p>{{ form.emailOuContato.label_tag }}{{ form.emailOuContato }}</p>
+            <p>{{ form.observação.label_tag }}{{ form.observação }}</p>
         </fieldset>
 
         <button type="submit">Enviar</button>
     </form>
 </div>
 
-<!-- Script para autopreencher responsável -->
 <script>
-    // Responsáveis passados pelo view já em JSON
     const responsaveis = JSON.parse('{{ responsaveis_json|escapejs }}');
 
     function atualizarResponsavel() {
@@ -104,10 +59,7 @@
         inputResponsavel.value = responsaveis[bancoSelecionado] || "";
     }
 
-    // Dispara quando o usuário muda o banco
     document.getElementById("id_banco").addEventListener("change", atualizarResponsavel);
-
-    // Preenche ao carregar a página se algum banco já estiver selecionado
     window.onload = atualizarResponsavel;
 </script>
 </body>

@@ -2,11 +2,11 @@ from django import forms
 import pandas as pd
 from .models import FluxoArquivo
 
+# Caminho da planilha banco ↔ responsável
 PLANILHA_BANCOS = r"Z:\PRICING\UPLOADSTESTE\relacaoBancoResponsavel.xlsx"
 
-# Lê a planilha de relação banco-responsável
+# Lê a planilha e monta choices para o select de bancos
 df_bancos = pd.read_excel(PLANILHA_BANCOS, sheet_name=0)
-
 BANCO_CHOICES = [
     (row["BANCO"], row["BANCO"])
     for _, row in df_bancos.iterrows()
@@ -16,7 +16,11 @@ BANCO_CHOICES = [
 class UploadForm(forms.ModelForm):
     arquivo = forms.FileField(label="Selecione o arquivo de comissão")
     banco = forms.ChoiceField(choices=BANCO_CHOICES, label="Banco")
-    responsavel = forms.CharField(label="Responsável", required=False)  # <--- novo campo
+    responsavel = forms.CharField(
+        label="Responsável", 
+        required=False,
+        widget=forms.TextInput(attrs={"id": "id_responsavel"})
+    )
 
     class Meta:
         model = FluxoArquivo
