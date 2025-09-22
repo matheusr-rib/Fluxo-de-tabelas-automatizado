@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'fluxoComissao.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'fluxo_comissao',   # nome do banco que você criou
+        'USER': 'postgres',         # seu usuário
+        'PASSWORD': 'postgres',    # senha definida
+        'HOST': 'localhost',        # ou IP/servidor da TI
+        'PORT': '5432',             # porta padrão
     }
 }
 
