@@ -8,11 +8,11 @@ class Upload(models.Model):
 
 
 class FluxoArquivo(models.Model):
-    data = models.DateField(auto_now_add=True)         # Data de upload
-    hora = models.TimeField(auto_now_add=True)         # Hora de upload
-    banco = models.CharField(max_length=100)           # Banco
-    responsavel = models.CharField(max_length=100)     # Responsável
-    caminho_arquivo = models.CharField(max_length=500) # Caminho do arquivo
+    data = models.DateField(auto_now_add=True)        
+    hora = models.TimeField(auto_now_add=True)         
+    banco = models.CharField(max_length=100)           
+    responsavel = models.CharField(max_length=100)     
+    caminho_arquivo = models.CharField(max_length=500) 
     nome_arquivo = models.CharField(max_length=255) 
     tipo = models.CharField(max_length=60, null=True) 
     situacao = models.CharField(max_length=20, null=True)
