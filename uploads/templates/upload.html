@@ -55,12 +55,17 @@
     function atualizarResponsavel() {
         const selectBanco = document.getElementById("id_banco");
         const inputResponsavel = document.getElementById("id_responsavel");
+        if(!selectBanco) return;
         const bancoSelecionado = selectBanco.value;
+        // Preenche automaticamente, mas quem manda é o usuário: ele pode editar
         inputResponsavel.value = responsaveis[bancoSelecionado] || "";
     }
 
-    document.getElementById("id_banco").addEventListener("change", atualizarResponsavel);
-    window.onload = atualizarResponsavel;
+    const sel = document.getElementById("id_banco");
+    if (sel) {
+        sel.addEventListener("change", atualizarResponsavel);
+        window.addEventListener("load", atualizarResponsavel);
+    }
 </script>
 </body>
 </html>

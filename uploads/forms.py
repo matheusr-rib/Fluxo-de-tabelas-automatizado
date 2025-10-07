@@ -2,10 +2,8 @@ from django import forms
 import pandas as pd
 from .models import FluxoArquivo
 
-# Caminho da planilha banco ↔ responsável
 PLANILHA_BANCOS = r"Z:\PRICING\UPLOADSTESTE\relacaoBancoResponsavel.xlsx"
 
-# Lê a planilha e monta choices para o select de bancos
 df_bancos = pd.read_excel(PLANILHA_BANCOS, sheet_name=0)
 BANCO_CHOICES = [
     (row["BANCO"], row["BANCO"])
@@ -14,10 +12,10 @@ BANCO_CHOICES = [
 ]
 
 class UploadForm(forms.ModelForm):
-    arquivo = forms.FileField(label="Selecione o arquivo de comissão")
-    banco = forms.ChoiceField(choices=BANCO_CHOICES, label="Banco")
+    arquivo = forms.FileField(label="Selecione o arquivo de comissão", required=True)
+    banco = forms.ChoiceField(choices=BANCO_CHOICES, label="Banco", required=True)
     responsavel = forms.CharField(
-        label="Responsável", 
+        label="Responsável",
         required=False,
         widget=forms.TextInput(attrs={"id": "id_responsavel"})
     )
@@ -36,16 +34,4 @@ class UploadForm(forms.ModelForm):
             "emailOuContato",
             "observação",
         ]
-        labels = {
-            "responsavel": "Responsável",
-            "tipo": "Tipo",
-            "situacao": "Situação",
-            "convenio": "Convênio",
-            "tipo_op": "Tipo de Operação",
-            "recebido": "Recebido",
-            "emailOuContato": "E-mail ou Contato",
-            "observação": "Observação",
-        }
-        widgets = {
-            "observação": forms.Textarea(attrs={"rows": 3}),
-        }
+        widgets = {"observação": forms.Textarea(attrs={"rows": 3})}
